@@ -37,11 +37,12 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 exports.signup = async (req, res, next) => {
   const { name, email, password } = req.body;
+  console.log(email)
   try {
     const user = await User.findOne({ email });
     if (user){
         return res.status(400).json({
-            msg: 'User with this email address already exists'
+            error: 'User with this email address already exists'
         })
     }
 
@@ -64,7 +65,7 @@ exports.signup = async (req, res, next) => {
 
     const sent = await sgMail.send(emailData);
     res.status(200).json({
-        msg: 'The email was successfully sent',
+        msg: 'The email was successfully sent. Check you inbox for the activation link',
         data: sent
     })
   } catch (err) {
@@ -96,7 +97,7 @@ exports.accountActivation = (req, res, next) => {
                 }
                 return res.status(200).json({
                     msg: 'User Registered Successfully',
-                    user: user
+                    user: {name: name, email: email}
                 })
             })
         })
@@ -111,6 +112,11 @@ exports.signin = async (req, res, next) => {
     const {email, password} = req.body;
     try {
         const user = await User.findOne({email})
+        if(!user) {
+            return res.status(400).json({
+                error: 'User with that email address does not exist. Please sign up'
+            })
+        }
         const isAuth = user.authenticate(password);
         if(!isAuth){
             return res.status(400).json({
