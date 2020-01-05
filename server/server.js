@@ -13,6 +13,7 @@ connectDB();
 
 //Import routes
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user')
 
 //middlewares
 app.use(morgan('dev'));
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/api', authRoutes);
+app.use('/api', userRoutes);
 
 const PORT = process.env.PORT || 5000;
 
