@@ -5,6 +5,8 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import { authenticate, isAuth } from "./helpers";
+import Google from "./Google";
+
 
 
 const Signin = ({history}) => {
@@ -66,7 +68,9 @@ const Signin = ({history}) => {
           className="form-control"
         />
       </div>
-
+      <div className='pb-3 pt-3'>
+        <Link to='/auth/password/forgot'>Forgot Password?</Link>
+      </div>
       <div>
         <button className="btn btn-primary" onClick={clickSubmit}>
           {buttonText}
@@ -80,6 +84,7 @@ const Signin = ({history}) => {
         <ToastContainer />
         {isAuth() ? <Redirect to='/'/> : null}
         <h1 className="p-5 text-center">Sign In</h1>
+        <Google />
         {signinForm()}
       </div>
     </Layout>
