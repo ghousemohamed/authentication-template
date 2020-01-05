@@ -115,3 +115,19 @@ exports.signin = async (req, res, next) => {
 exports.requireSignin = expressJwt({
     secret: process.env.JWT_SECRET
 })
+
+exports.adminMiddleware = async (req, res, next) => {
+    const user = await User.findById({_id: req.user._id});
+    if (!user) {
+        return res.status(404).json({
+            msg: 'User not found'
+        })
+    }
+    if(user.role !== 'admin') {
+        return res.status(400).json({
+            msg: 'Admin resource access denied'
+        })
+    }
+    req.profile = user;
+    next();
+}
