@@ -10,7 +10,7 @@ const App = () => {
         <hr />
         <p className="lead">
           MERN stack login register system with account activation, forgot
-          password, reset password, login with facebook and google as well as
+          password, reset password, login with google and as well as
           private and protected routes for authenticated user and users with the
           role of admin.
         </p>

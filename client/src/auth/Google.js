@@ -7,14 +7,12 @@ import { withRouter } from "react-router-dom";
 
 const Google = ({history}) => {
     const responseGoogle = (response) => {
-        console.log(response.tokenId)
         axios({
             method: 'POST',
             url: `${process.env.REACT_APP_API}/google-login`,
             data: {idToken: response.tokenId}
         })
         .then(response => {
-            console.log('GOOGLE SIGN IN SUCCESS', response)
             // inform parent component
             authenticate(response, () => {
                 isAuth && isAuth().role === 'admin' ? history.push('/admin') : history.push('/private')

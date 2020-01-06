@@ -44,7 +44,7 @@ const Signin = ({history}) => {
       });
     } catch (err) {
       setValues({ ...values, buttonText: "Submit" });
-      toast.error(err.response.data.error);
+      toast.error(err.response.data.msg);
     }
   };
   const { email, password, buttonText } = values;

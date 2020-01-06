@@ -94,7 +94,7 @@ exports.signin = async (req, res, next) => {
         if(!isAuth){
             return res.status(400).json({
                 msg: 'Either the password or the email address is invalid. Please try again'
-            })
+            }) 
         }
         const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET, {
             expiresIn: '7d'

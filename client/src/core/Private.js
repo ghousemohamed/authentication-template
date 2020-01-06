@@ -30,7 +30,6 @@ const Private = ({ history }) => {
             }
         })
             .then(response => {
-                console.log('PRIVATE PROFILE UPDATE', response);
                 const { role, name, email } = response.data.data;
                 setValues({ ...values, role, name, email });
             })
@@ -63,7 +62,6 @@ const Private = ({ history }) => {
             data: { name, password }
         })
             .then(response => {
-                console.log('PRIVATE PROFILE UPDATE SUCCESS', response);
                 updateUser(response, () => {
                     setValues({ ...values, buttonText: 'Submitted' });
                     toast.success('Profile updated successfully');
